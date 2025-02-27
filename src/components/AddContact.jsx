@@ -1,28 +1,48 @@
 import React from "react";
 
 class AddContact extends React.Component {
+
+  state = {
+    Name:"",
+    Email:""
+  };
+
+  add = (e) => {
+    e.preventDefault();
+    if(this.state.Name == "" || this.state.Email == ""){
+      alert("all the fields are mentatroy !!");
+      return;
+    }
+    console.log(this.state)
+  }
+
   render() {
     return (
       <div className="ui main">
         <h2>Add Contact</h2>
-        <form className="ui form">
+        <form className="ui form" onSubmit={this.add}>
           <div className="field">
             <label>Name:</label>
             <input
               type="text"
               name="name"
               placeholder="Enter the name please !"
+              value={this.state.Name}
+              onChange={(e)=>this.setState({Name:e.target.value})}
             ></input>
           </div>
           <div className="field">
             <label>Email:</label>
             <input
               type="text"
-              name="name"
-              placeholder="Enter the name please !"
+              name="email"
+              placeholder="Enter the email please !"
+              value={this.state.Email}
+              onChange={(e)=>this.setState({Email:e.target.value})}
             ></input>
           </div>
           <button className="ui button blue">Add</button>
+         
         </form>
       </div>
     );
