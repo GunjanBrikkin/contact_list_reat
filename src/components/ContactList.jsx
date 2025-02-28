@@ -1,4 +1,5 @@
 import ContactCard from "../components/ContactCard";
+import { Link } from "react-router-dom";
 
 const ContactList = (probs) => {
   console.log(probs);
@@ -28,7 +29,14 @@ const ContactList = (probs) => {
     <div className="main">
       <h2 style={{ marginTop: "50px" }}>
         Contact List
-        <button className="ui button blue right">Add Contact</button>
+        <Link to="/add">
+          <button
+            className="ui button blue right"
+            style={{ marginLeft: "125px" }}
+          >
+            Add Contact
+          </button>
+        </Link>
       </h2>
       <div className="ui celled list">{renderContactList}</div>
     </div>
