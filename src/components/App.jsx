@@ -2,21 +2,63 @@ import "./App.css";
 import Header from "../components/Header";
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
+  const LOCAL_STORAGE_KEY = "contacts";
+  const [contacts, setContacts] = useState([]);
 
-  const [contacts,setContacts] = useState([]);
+  const addContactHandler = (contact) => {
+    console.log("contact", contact);
+    setContacts([...contacts, { id: uuidv4(), ...contact }]);
+  };
 
-  const addContactHandler = (contacts) => {
-    console.log(contacts)
-  }
+  const removeConatctList = (id) => {
+    const newContactList = contacts.filter((contact) => {
+      return contact.id != id;
+    });
+    setContacts(newContactList);
+  };
+
+  // Load contacts from localStorage when the component mounts
+  useEffect(() => {
+    const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (retriveContacts.length > 0) {
+      setContacts(retriveContacts);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
+  }, [contacts]);
 
   return (
     <div className="ui container">
-      <Header />
-      <AddContact addContactHandler = {addContactHandler}/>
-      <ContactList contacts={contacts} />
+      <Router>
+        <Header />
+
+        <Routes>
+          <Route
+            path="/add"
+            exact
+            element={<AddContact addContactHandler={addContactHandler} />}
+          />
+          <Route
+            path="/"
+            element={
+              <ContactList
+                contacts={contacts}
+                getContactId={removeConatctList}
+              />
+            }
+          ></Route>
+        </Routes>
+
+        {/* <AddContact addContactHandler={addContactHandler} /> */}
+        {/* <ContactList contacts={contacts} getContactId={removeConatctList} /> */}
+      </Router>
     </div>
   );
 }
