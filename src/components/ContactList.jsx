@@ -8,15 +8,7 @@ const ContactList = (probs) => {
     probs.getContactId(id);
   };
 
-  const contacts = [
-    {
-      id: "1",
-      Name: "Gunjan",
-      Email: "gunjan@gmail.com",
-    },
-  ];
-
-  const renderContactList = contacts.map((contact) => {
+  const renderContactList = probs.contacts.map((contact) => {
     return (
       <ContactCard
         contact={contact}
