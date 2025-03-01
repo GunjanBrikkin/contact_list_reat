@@ -24,7 +24,7 @@ function App() {
 
   // Load contacts from localStorage when the component mounts
   useEffect(() => {
-    const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
     if (retriveContacts.length > 0) {
       setContacts(retriveContacts);
     }
@@ -40,20 +40,15 @@ function App() {
         <Header />
 
         <Routes>
-          <Route
-            path="/add"
-            exact
-            element={<AddContact addContactHandler={addContactHandler} />}
-          />
-          <Route
-            path="/"
-            element={
-              <ContactList
-                contacts={contacts}
-                getContactId={removeConatctList}
-              />
-            }
-          ></Route>
+           <Route 
+             path="/add" 
+               element={<AddContact addContactHandler={addContactHandler} />} 
+           />
+         <Route 
+              path="/" 
+              exact 
+               element={<ContactList contacts={contacts} getContactId={removeConatctList} />} 
+           />
         </Routes>
 
         {/* <AddContact addContactHandler={addContactHandler} /> */}
