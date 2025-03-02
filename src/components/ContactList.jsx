@@ -2,7 +2,7 @@ import ContactCard from "../components/ContactCard";
 import { Link } from "react-router-dom";
 
 const ContactList = (probs) => {
-  console.log(probs);
+  console.log("probs in ContactList",probs);
 
   const deleteConactHandler = (id) => {
     probs.getContactId(id);

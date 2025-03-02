@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ContactDetail from "../components/ContactDetail";
+import DeleteThatRecord from "./deleteSurePage";
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
@@ -57,6 +58,7 @@ function App() {
             }
           />
           <Route path="/contact/:id" element={<ContactDetail />} />
+          <Route path="/conact/deleteSurePage" element={<DeleteThatRecord clickHandler={removeConatctList}/>} />
         </Routes>
 
         {/* <AddContact addContactHandler={addContactHandler} /> */}
